@@ -1,5 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
+
+import UserOutput from './components/UserOutput/UserOutput.js';
+import UserInput from './components/UserInput/UserInput.js';
 
 
 
@@ -10,10 +13,33 @@ class App extends Component {
 		super(props);
 	}
 
+	state ={
+		username: 'MakPro'
+	}
+
+
+	changeNameHandler = (e) => {
+		this.setState({
+			username: e.target.value
+		});
+	}
+
 	render() {
 
 		return (
-			<h1>React template</h1>
+			<div className="content__container">
+				<UserOutput username={this.state.username}/>
+				<hr/>
+				<UserOutput username="Manu"/>
+				<hr/>
+				<UserOutput username="Diana"/>
+				<hr/>
+				<hr/>
+				<UserInput 
+					changename={this.changeNameHandler}
+					username={this.state.username}
+				/>
+			</div>
 	  );
 	}
   
