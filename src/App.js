@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 
 
-
-import ValidationComponent from './components/ValidationComponent/ValidationComponent.js';
-import CharComponent from './components/CharComponent/CharComponent.js';
-
+import Persons from './components/Persons/Persons.js';
 
 
 class App extends Component {
@@ -13,39 +10,51 @@ class App extends Component {
 	}
 
 	state = {
-		inputText: '',
+		persons: [
+			{id: 'person1', name: 'Etienne Gruyez', position: 'Stoelzle Masnières Parfumerie SAS', imgUrl: 'person-1'},
+			{id: 'person2', name: 'Andrea Gherzi', position: 'Global Sales Director Spirits', imgUrl: 'person-2'},
+			{id: 'person3', name: 'Andreas Herzog', position: 'Decoration Manager Stoelzle Glass Group', imgUrl: 'person-3'}
+		]
 	}
 
-	inputTypeHandler = (e) => {
+	changePersonNameHandler = (e, id) => {
+		// Получаем позицию изменяемого элемента
+		const personIndex = this.state.persons.findIndex(person => person.id == id);
+
+
+		// Создаем копию массива для иммутабельности
+		const newPersons = [
+			...this.state.persons
+		];
+
+		// заменяем поле name в элементе, позиция которго равна personIndex 
+		newPersons[personIndex].name = e.target.value;
+
+
+		// меняем массив элементов
 		this.setState({
-			inputText: e.target.value,
+			persons: newPersons
 		});
 	}
 
-	deleteCharHandler = (pos) => {
-		const charsArray = this.state.inputText.split('');
-		charsArray.splice(pos, 1);
+	deletePersonHandler =(id) => {
+		const personsCopy = [...this.state.persons];
+		const filteredPersons = personsCopy.filter(person => person.id !== id);
+
 		this.setState({
-			inputText: charsArray.join('')
+			persons: filteredPersons
 		});
 	}
 
 	render() {
 
-		const charsList = this.state.inputText.split('').map((char, index) => {
-			return <CharComponent key={index} char={char} deleteChar={() => this.deleteCharHandler(index)}/>;
-		});
-
 		return (
 			<div className="content__container">
-				<input type="text" onChange={(e) => this.inputTypeHandler(e)} value={this.state.inputText}/>
-				<p>{this.state.inputLength}</p>
-				<hr/>
-				<ValidationComponent textlength={this.state.inputLength}/>
-				<hr/>
-				<div className="chars__list" style={{display: 'flex'}}>
-					{charsList}
-				</div>
+				<Persons 
+					persons={this.state.persons}
+					changeName={this.changePersonNameHandler}
+					deletePerson={this.deletePersonHandler}
+				/>
 			</div>
 	  );
 	}
