@@ -13,7 +13,9 @@ class App extends Component {
 	render() {
 
 		return (
-			<h1>React template</h1>
+			<div className="content__container">
+				Content
+			</div>
 	  );
 	}
   
