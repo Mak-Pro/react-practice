@@ -1,24 +1,20 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react'; // Вместо Component используем PureComponent
 
 import classes from './Persons.module.scss';
 
 import Person from './Person/Person.js';
 
-class Persons extends Component {
+class Persons extends PureComponent { // Вместо Component используем PureComponent 
 	constructor(props) {
 		super(props);
 	}
 
-	shouldComponentUpdate(nextProps, nextState) {
+
+
+	// Если используем PureComponent: shouldComponentUpdate нельзя использовать!
+	
+	/*shouldComponentUpdate(nextProps, nextState) {
 		console.log('[Persons.js] shouldComponentUpdate');
-
-		/*
-			При изменении в App.js (в частности скрываем или показываем apptitle), 
-			делаем сравнение существующего массива persons c массивом persons, который приходит из nextProps
-			И если изменений не было, то не обновляем компонент Persons, а если было - обновляем.
-			Это ускоряет приложение очень сильно!
-		*/
-
 		if(this.props.persons === nextProps.persons) {
 			console.log('Persons not changed...');
 			return false;
@@ -27,8 +23,7 @@ class Persons extends Component {
 			console.log('Persons was changed...');
 			return true;
 		}
-		
-	}
+	}*/
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
 		console.log('[Persons.js] componentDidUpdate');
