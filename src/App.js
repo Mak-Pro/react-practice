@@ -1,12 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 
 import Persons from './components/Persons/Persons.js';
 
 
+/*
+	В корне лежит папка Lifecycle Methods Diagram. В ней наглядная диаграмма
+	методов жизненнго цикла компонента.
+	
+
+*/
+
+
+
+
 class App extends Component {
 	constructor(props) {
 		super(props);
+		// 1. Самым первым выполняется код в constructor
+		console.log('[App.js] constructor');
 	}
 
 	state = {
@@ -17,21 +29,62 @@ class App extends Component {
 		]
 	}
 
+	// 2. Вторым выполняется код методе getDerivedStateFromProps (обязан вернуть state)
+	//    Этот метод практически никогда не используется.
+	static getDerivedStateFromProps(props, state) {
+		console.log('[App.js] getDerivedStateFromProps', props);
+		return state;
+	}
+
+	// 5. Пятым выполнится код в методе componentDidMount
+	componentDidMount() {
+		console.log('[App.js] componentDidMount');
+	}
+
+
+
+	/*6. Этот метод выполняется ТОЛЬКО тогда, когда компонент обновляется.
+				 При первом рендеринге он не выполняется.
+				 Дожен обязательно вернуть true (компонент обновится после изменений)
+				 или false (обновление не произойдет)
+				 После этого метода выполняется метод render и рендеринг дочерних элементов
+	*/
+	shouldComponentUpdate(nextProps, nextState) {
+		console.log('[App.js] shouldComponentUpdate | ', 'nextProps - ', nextProps, 'nextSatte - ', nextState);
+		return true;
+	}
+
+
+
+	/*7. Этот метод выполняется после того, как будут отрисованы все дочерние элементы
+				 метода render
+				 Дожен обязательно вернуть какой-либо код или по умолчанию null
+				 Используется крайне редко и только вместе с методом componentDidUpdate
+	*/
+	getSnapshotBeforeUpdate(prevProps, prevState) {
+		console.log('[App.js] getSnapshotBeforeUpdate');
+		return { message: 'SNAPSHOT!' };
+	}
+
+
+
+	/*8. Этот метод выполняется после метода getSnapshotBeforeUpdate
+			 snapshot берется из getSnapshotBeforeUpdate
+	*/
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		console.log('[App.js] componentDidUpdate | snaphot: ', snapshot);
+	}
+
+
+
+
+
 	changePersonNameHandler = (e, id) => {
-		// Получаем позицию изменяемого элемента
 		const personIndex = this.state.persons.findIndex(person => person.id == id);
-
-
-		// Создаем копию массива для иммутабельности
 		const newPersons = [
 			...this.state.persons
 		];
-
-		// заменяем поле name в элементе, позиция которго равна personIndex 
 		newPersons[personIndex].name = e.target.value;
-
-
-		// меняем массив элементов
 		this.setState({
 			persons: newPersons
 		});
@@ -40,22 +93,27 @@ class App extends Component {
 	deletePersonHandler =(id) => {
 		const personsCopy = [...this.state.persons];
 		const filteredPersons = personsCopy.filter(person => person.id !== id);
-
 		this.setState({
 			persons: filteredPersons
 		});
 	}
 
 	render() {
-
+		// 3. Третим выполнится код в методе render 
+		//    (четвертым выполнится рендеринг дочерних элементов, в частности компонента Persons)
+		console.log('[App.js] Render');
 		return (
-			<div className="content__container">
-				<Persons 
-					persons={this.state.persons}
-					changeName={this.changePersonNameHandler}
-					deletePerson={this.deletePersonHandler}
-				/>
-			</div>
+			<Fragment>
+				<h1 className="app__title">{this.props.apptitle}</h1>
+				<hr/>
+				<div className="content__container">
+					<Persons 
+						persons={this.state.persons}
+						changeName={this.changePersonNameHandler}
+						deletePerson={this.deletePersonHandler}
+					/>
+				</div>
+			</Fragment>
 	  );
 	}
   

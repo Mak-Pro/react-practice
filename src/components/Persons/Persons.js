@@ -6,6 +6,8 @@ import Person from './Person/Person.js';
 
 const Persons = (props) => {
 
+	console.log('[App.js] Render Child Components');
+
 	const { persons, changeName, deletePerson } = props;
 
 	const personsList = persons.map((person, index) => {
