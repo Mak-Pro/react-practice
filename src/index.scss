@@ -375,3 +375,20 @@ hr {
     width: 100%;
   }
 }
+
+
+
+.counter__actions {
+  display: flex;
+  align-items: center;
+
+  span {
+    display: inline-flex;
+    width: 4rem;
+    height: 4rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #4B7DBD;
+    margin: 0 2rem;
+  }
+}
