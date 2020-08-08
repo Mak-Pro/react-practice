@@ -12,6 +12,7 @@ const Persons = (props) => {
 		return <Person 
 						key={person.id}
 						id={person.id}
+						image={person.imgUrl}
 						name={person.name}
 						position={person.position}
 						image={person.imgUrl}
