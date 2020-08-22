@@ -7,15 +7,14 @@ class App extends Component {
 		super(props);
 	}
 
-	state = {
-		
-	}
 
 	render() {
 
 		return (
 			<div className="content__container">
-				Content
+				
+				
+
 			</div>
 	  );
 	}
