@@ -1,0 +1,43 @@
+.burger__ingredient {
+	width: 100%;
+	margin: 2px 0;
+	height: 3rem;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&.breadTop {
+		background: orange;
+		height: 8rem;
+		border-top-left-radius: 50%;
+		border-top-right-radius: 50%;
+	}
+
+	&.breadBottom {
+		background: orange;
+		height: 8rem;
+		border-bottom-left-radius: 50%;
+		border-bottom-right-radius: 50%;
+	}
+
+	&.salad {
+		background: limegreen;
+	}
+
+	&.bacon {
+		background: maroon;
+	}
+
+	&.cheese {
+		background: yellow;
+	}
+
+	&.meat {
+		background: red;
+	}
+
+	&.tomatoes {
+		background: tomato;
+	}
+}

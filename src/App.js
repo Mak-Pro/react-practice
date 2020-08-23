@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 
+import Layout from './components/Layout/Layout.js';
+
 
 class App extends Component {
 	constructor(props) {
@@ -14,9 +16,9 @@ class App extends Component {
 	render() {
 
 		return (
-			<div className="content__container">
-				Content
-			</div>
+			<Layout>
+					<p>layout</p>
+			</Layout>
 	  );
 	}
   
