@@ -4,6 +4,7 @@ import classes from './BurgerBuilder.module.scss';
 
 
 import Burger from './Burger/Burger.js';
+import BurgerControls from '../../components/BurgerControls/BurgerControls.js';
 
 
 class BurgerBuilder extends Component {
@@ -28,7 +29,7 @@ class BurgerBuilder extends Component {
     return (
 			<Fragment>
 				<Burger ingredients={this.state.ingredients}/>
-				<p>Controls</p>
+				<BurgerControls />
 			</Fragment>
     );
   }

@@ -1,0 +1,44 @@
+.burger__control {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 2rem;
+	padding-bottom: 2rem;
+
+	button {
+		margin: 0 1rem;
+
+		&:first-of-type {
+			margin-left: 0;
+		}
+
+		&:last-of-type {
+			margin-right: 0;
+		}
+	}
+}
+
+.btn__less {
+	min-width: 10rem;
+	border-color: tomato;
+	background: tomato;
+	color: #fff;
+
+	&:hover {
+		background: darken(tomato, 20%);
+		border-color: darken(tomato, 20%);
+	}
+}
+
+.btn__more {
+	min-width: 10rem;
+	border-color: limegreen;
+	background: limegreen;
+	color: #fff;
+
+	&:hover {
+		background: darken(limegreen, 20%);
+		border-color: darken(limegreen, 20%);
+	}
+}
