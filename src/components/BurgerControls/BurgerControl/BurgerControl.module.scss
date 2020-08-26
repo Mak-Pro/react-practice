@@ -17,6 +17,12 @@
 			margin-right: 0;
 		}
 	}
+
+	&:last-child {
+		margin-bottom: 0;
+		border-bottom: 0 none;
+		padding-bottom: 0;
+	}
 }
 
 .btn__less {
@@ -41,4 +47,9 @@
 		background: darken(limegreen, 20%);
 		border-color: darken(limegreen, 20%);
 	}
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.4;
 }

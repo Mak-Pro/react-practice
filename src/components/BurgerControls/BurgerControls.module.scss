@@ -5,3 +5,21 @@
 	border: 1px solid #ccc;
 	padding: 2rem;
 }
+
+.total__price {
+	font-size: 3rem;
+	font-weight: 700;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 3rem;
+	padding-bottom: 2rem;
+}
+
+.submit__wrapper {
+	text-align: center;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.4;
+}
