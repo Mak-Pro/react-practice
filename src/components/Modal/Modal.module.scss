@@ -1,0 +1,40 @@
+.modal__window {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 500;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: all 0.5s ease 0s;
+	-moz-transition: all 0.5s ease 0s;
+	transition: all 0.5s ease 0s;
+
+	&_overlay {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0,0,0,0.7);
+	}
+
+	&_content {
+		width: 90%;
+		max-width: 70rem;
+		max-height: 60rem;
+		background: #fff;
+		padding: 2rem;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 5;
+	}
+
+	&.show {
+		opacity: 1;
+		visibility: visible;
+	}
+}

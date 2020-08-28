@@ -8,7 +8,7 @@ import BurgerControl from './BurgerControl/BurgerControl.js';
 
 const BurgerControls = (props) => {
 
-	const { controls, addIngredient, removedIngredient, totalPrice, purchaseble } = props; 
+	const { controls, addIngredient, removedIngredient, totalPrice, purchaseble, processOrder } = props; 
 
 	const controlsArray = [];
 
@@ -32,7 +32,10 @@ const BurgerControls = (props) => {
 			<h3 className={classes.total__price}>Current Price: {totalPrice.toFixed(2)}$</h3>
 			{controlsList}
 			<div className={classes.submit__wrapper}>
-				<button className={["btn", !purchaseble ? classes.disabled : null].join(' ')}>Order</button>
+				<button 
+					className={["btn", !purchaseble ? classes.disabled : null].join(' ')}
+					onClick={processOrder}
+				>Order</button>
 			</div>
 		</div>
 	);

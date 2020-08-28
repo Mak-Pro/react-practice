@@ -5,6 +5,8 @@ import classes from './BurgerBuilder.module.scss';
 
 import Burger from './Burger/Burger.js';
 import BurgerControls from '../../components/BurgerControls/BurgerControls.js';
+import OrderSummary from './OrderSummary/OrderSummary.js';
+import Modal from '../../components/Modal/Modal.js';
 
 
 
@@ -35,6 +37,7 @@ class BurgerBuilder extends Component {
 		},
 		totalPrice: 4,
 		purchaseble: false,
+		showOrderSummaryModal: false,
 	}
 
 
@@ -78,10 +81,33 @@ class BurgerBuilder extends Component {
 	}
 
 
+
+	showOrderSummaryModalHandler = () => {
+		this.setState({
+			showOrderSummaryModal: !this.state.showOrderSummaryModal
+		});
+	}
+
+	continueOrderingHandler = () => {
+		console.log('Continue Ordering...');
+	}
+
+
   render() {
 
     return (
 			<Fragment>
+				<Modal 
+					show={this.state.showOrderSummaryModal}
+					cancelOrder={this.showOrderSummaryModalHandler}
+				>
+					<OrderSummary 
+						ingredients={this.state.ingredients}
+						cancelOrder={this.showOrderSummaryModalHandler}
+						continueOrder={this.continueOrderingHandler}
+						totalPrice={this.state.totalPrice}
+					/>
+				</Modal>
 				<Burger ingredients={this.state.ingredients}/>
 				<BurgerControls 
 					controls={this.state.ingredients}
@@ -89,6 +115,7 @@ class BurgerBuilder extends Component {
 					removedIngredient={this.removedIngredientHandler}
 					totalPrice={this.state.totalPrice}
 					purchaseble={this.state.purchaseble}
+					processOrder={this.showOrderSummaryModalHandler}
 				/>
 			</Fragment>
     );
