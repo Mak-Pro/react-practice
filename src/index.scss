@@ -290,9 +290,18 @@ input {
   transition: all 0.3s ease 0s;
 }
 
-form input:focus {
+input:focus {
   background: #f2f2f2;
   border-color: #878787;
+}
+
+select {
+  height: 4rem;
+  width: 100%;
+  border: 1px solid #c0c0c0;
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.2rem;
 }
 
 textarea {
@@ -340,6 +349,18 @@ button:hover {
 
 [type="submit"]:disabled:hover {
   background: transparent;
+}
+
+.field__wrapper {
+  margin-bottom: 2rem;
+
+  &_label {
+    font-size: 2rem;
+    font-weight: 700;
+    display: block;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .submit__wrapper {

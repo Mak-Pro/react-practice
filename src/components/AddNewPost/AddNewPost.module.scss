@@ -1,0 +1,12 @@
+.add__new_post {
+	border: 1px solid #ccc;
+	width: 100%;
+	padding: 2rem;
+
+	&_title {
+		text-align: center;
+		font-size: 3rem;
+		font-weight: 700;
+		margin-bottom: 2rem;
+	}
+}

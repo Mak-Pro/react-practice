@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import AllPosts from './components/AllPosts/AllPosts.js';
+import PostFullInfo from './components/PostFullInfo/PostFullInfo.js';
+import AddNewPost from './components/AddNewPost/AddNewPost.js';
+
 
 
 class App extends Component {
@@ -15,7 +19,9 @@ class App extends Component {
 
 		return (
 			<div className="content__container">
-				Content
+				<AllPosts />
+				<PostFullInfo />
+				<AddNewPost />
 			</div>
 	  );
 	}
