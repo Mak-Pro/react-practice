@@ -17,6 +17,7 @@ class AllPosts extends Component {
 	state = {
 		posts: [],
 		loaded: false,
+		loadingError: false,
 	}
 
 	componentDidMount() {
@@ -35,22 +36,37 @@ class AllPosts extends Component {
 				 			posts: updatedPosts,
 				 			loaded: true
 				 	});
+				 })
+				 .catch(error => {
+				 	this.setState({
+				 		loadingError: true, 
+				 		loaded: true
+				 	});
 				 });
 	}
 
 
 	render() {
 
-		const loadedPosts = this.state.posts.map(post => {
-			return <PostCard 
-								key={post.id}
-								id={post.id}
-								title={post.title}
-								text={post.body}
-								autor='Mak-Pro'
-								selectPost={() => this.props.selectPost(post.id)}
-						 />
-		});
+		let loadedPosts = <p style={{
+														display: 'flex', 
+														width: '100%', 
+														alignItems: 'center',
+														justifyContent: 'center'
+													}}>Something went wrong...</p>
+
+		if(!this.state.loadingError) {
+			loadedPosts = this.state.posts.map(post => {
+				return <PostCard 
+									key={post.id}
+									id={post.id}
+									title={post.title}
+									text={post.body}
+									autor='Mak-Pro'
+									selectPost={() => this.props.selectPost(post.id)}
+							 />
+			});
+		}
 
 		return (
 			<div className={classes.all__posts}>
