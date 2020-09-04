@@ -21,7 +21,7 @@ class AllPosts extends Component {
 	}
 
 	componentDidMount() {
-		axios.get('https://jsonplaceholder.typicode.com/posts')
+		axios.get('/posts')
 				 .then(response => {
 
 				 	const fetchedPosts = response.data.splice(0, 3);

@@ -19,7 +19,7 @@ class App extends Component {
 
 	selectedPostHandler = (id) => {
 		if(id) {
-			axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+			axios.get(`/posts/${id}`)
 				 .then(response => {
 				 		this.setState({ 
 					 			selectedPost: response.data,
@@ -30,7 +30,7 @@ class App extends Component {
 	}
 
 	deletePostHandler = (id) => {
-		axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+		axios.delete(`/posts/${id}`)
 				 .then(response => {
 				 	console.log(response);
 				 });
