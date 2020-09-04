@@ -4,6 +4,33 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import axios from 'axios';
+
+
+// For request
+axios.interceptors.request.use(request => {
+	console.log(request);
+	return request;
+}, error => {
+	console.log(error);
+	return Promise.reject(error);
+});
+
+// For response
+axios.interceptors.response.use(response => {
+	console.log(response);
+	return response;
+}, error => {
+	console.log(error);
+	return Promise.reject(error);
+});
+
+
+// Removing interceptors
+// Simply store the reference to the interceptor in a variable and call eject  with that reference as an argument, to remove it
+// var myInterceptor = axios.interceptors.request.use(function () {...});
+// axios.interceptors.request.eject(myInterceptor);
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
