@@ -1,9 +1,11 @@
 .all__posts {
 	border: 1px solid #ccc;
 	display: flex;
-	flex-wrap: wpap;
+	flex-wrap: wrap;
 	width: 100%;
-	padding: 1rem;
+	padding: 1rem 0.5rem;
 	margin-bottom: 3rem;
 	margin-top: 3rem;
+	position: relative;
+	min-height: 16.2rem;
 }
