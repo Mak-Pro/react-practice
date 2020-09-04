@@ -6,7 +6,7 @@ import PostCard from '../../components/PostCard/PostCard.js';
 
 import Preloader from '../../components/Preloader/Preloader.js';
 
-import axios from 'axios';
+import axiosInstance from '../../axiosInstances.js';
 
 class AllPosts extends Component {
 
@@ -21,7 +21,7 @@ class AllPosts extends Component {
 	}
 
 	componentDidMount() {
-		axios.get('/posts')
+		axiosInstance.get('/posts')
 				 .then(response => {
 
 				 	const fetchedPosts = response.data.splice(0, 3);
