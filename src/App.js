@@ -29,12 +29,23 @@ class App extends Component {
 		
 	}
 
+	deletePostHandler = (id) => {
+		axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+				 .then(response => {
+				 	console.log(response);
+				 });
+	}
+
 	render() {
 
 		return (
 			<div className="content__container">
-				<AllPosts selectPost={(id) => this.selectedPostHandler(id)}/>
-				<PostFullInfo selectedPost={this.state.selectedPost}/>
+				<AllPosts 
+					selectPost={(id) => this.selectedPostHandler(id)}
+				/>
+				<PostFullInfo 
+					selectedPost={this.state.selectedPost} deletePost={(id) => {this.deletePostHandler(id)}}
+				/>
 				<AddNewPost />
 			</div>
 	  );
