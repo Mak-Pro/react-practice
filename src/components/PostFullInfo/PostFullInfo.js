@@ -3,13 +3,22 @@ import React from 'react';
 import classes from './PostFullInfo.module.scss';
 
 const PostFullInfo = (props) => {
+
+	let renderPost = <h3>'Please select a post...'</h3>;
+
+	if(props.selectedPost) {
+		const { title, body } = props.selectedPost;
+
+		renderPost = (<div className={classes.post__full_info}>
+										<h3 className={classes.post__full_info_title}>{title}}</h3>
+										<p>{body}</p>
+										<hr />
+										<button className="btn">Delete</button>
+									</div>);
+	}
+
 	return (
-		<div className={classes.post__full_info}>
-			<h3 className={classes.post__full_info_title}>Post full info title</h3>
-			<p>Post full info Text</p>
-			<hr />
-			<button className="btn">Delete</button>
-		</div>
+		renderPost
 	);
 }
 

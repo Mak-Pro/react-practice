@@ -48,6 +48,7 @@ class AllPosts extends Component {
 								title={post.title}
 								text={post.body}
 								autor='Mak-Pro'
+								selectPost={() => this.props.selectPost(post.id)}
 						 />
 		});
 
