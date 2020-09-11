@@ -15,6 +15,11 @@ class AddNewPost extends Component {
 		autor: 'MakPro'
 	}
 
+
+	componentDidMount() {
+		console.log(this.props);
+	}
+
 	sendPostHandler = () => {
 
 		const data = {
@@ -25,7 +30,7 @@ class AddNewPost extends Component {
 
 		axios.post('/posts', data)
 				 .then(response => {
-				 		console.log(response);
+				 		// console.log(response);
 				 });
 	}
 

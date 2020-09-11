@@ -2,7 +2,14 @@ import React from 'react';
 
 import classes from './PostCard.module.scss';
 
+
+//GET ROUTE PROPS
+import { withRouter } from 'react-router-dom';
+
+
 const PostCard = (props) => {
+
+	console.log(props);
 
 	const { id, autor='post autor', title='post title', selectPost } = props;
 
@@ -14,4 +21,4 @@ const PostCard = (props) => {
 	);
 }
 
-export default PostCard;
+export default withRouter(PostCard); // Wrap for get Route props to

@@ -21,6 +21,9 @@ class AllPosts extends Component {
 	}
 
 	componentDidMount() {
+
+		console.log(this.props);
+
 		axiosInstance.get('/posts')
 				 .then(response => {
 
