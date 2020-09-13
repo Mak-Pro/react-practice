@@ -2,12 +2,13 @@ import React, { Component, Fragment } from 'react';
 
 
 //IMPORT ROUTER
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
  
 
 import AllPosts from './components/AllPosts/AllPosts.js';
 import PostFullInfo from './components/PostFullInfo/PostFullInfo.js';
 import AddNewPost from './components/AddNewPost/AddNewPost.js';
+import NotFound from './components/NotFound/NotFound.js';
 
 import Header from './components/Header/Header.js';
 
@@ -27,6 +28,10 @@ class App extends Component {
 
 	selectedPostHandler = (id) => {
 		if(id) {
+			this.setState({ 
+				selectedPost: null,
+			});
+
 			axios.get(`/posts/${id}`)
 				 .then(response => {
 				 		this.setState({ 
@@ -47,22 +52,22 @@ class App extends Component {
 	render() {
 
 		return (
-			<BrowserRouter>
+			<BrowserRouter basename='/'>
 				<Fragment>
 					<Header />
 					<div className="content__container">
-						<Route path='/' exact render={ (routeProps) => <AllPosts 
+						<Switch>
+						<Route path='/' exact render={() => <h1>HOME PAGE</h1>}/>
+						<Route path='/posts' exact render={ (routeProps) => <AllPosts 
 							routeProps={routeProps}
 							selectPost={(id) => this.selectedPostHandler(id)}
 						/> }/>
 						<Route path='/new-post' exact render={ (routeProps) => <AddNewPost routeProps={routeProps}/> }/>
-						{/*<AllPosts 
-							selectPost={(id) => this.selectedPostHandler(id)}
-						/>*/}
-						{/*<PostFullInfo 
+						<Route path='/posts/:id' exact render={() => <PostFullInfo 
 							selectedPost={this.state.selectedPost} deletePost={(id) => {this.deletePostHandler(id)}}
-						/>
-						<AddNewPost />*/}
+						/>}/>
+						<Route render={() => <NotFound />} />
+						</Switch>
 					</div>
 				</Fragment>
 			</BrowserRouter>

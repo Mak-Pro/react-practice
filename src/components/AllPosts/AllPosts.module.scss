@@ -8,4 +8,12 @@
 	margin-top: 3rem;
 	position: relative;
 	min-height: 16.2rem;
+
+	&_itemlink {
+		display: block;
+		width: calc(33.333333% - 1rem);
+		margin: 0 0.5rem;
+		text-decoration: none;
+		color: inherit;
+	}
 }

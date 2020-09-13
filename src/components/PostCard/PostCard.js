@@ -9,8 +9,6 @@ import { withRouter } from 'react-router-dom';
 
 const PostCard = (props) => {
 
-	console.log(props);
-
 	const { id, autor='post autor', title='post title', selectPost } = props;
 
 	return (

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 import classes from './AllPosts.module.scss';
 
@@ -21,8 +22,6 @@ class AllPosts extends Component {
 	}
 
 	componentDidMount() {
-
-		console.log(this.props);
 
 		axiosInstance.get('/posts')
 				 .then(response => {
@@ -60,14 +59,16 @@ class AllPosts extends Component {
 
 		if(!this.state.loadingError) {
 			loadedPosts = this.state.posts.map(post => {
-				return <PostCard 
-									key={post.id}
-									id={post.id}
-									title={post.title}
-									text={post.body}
-									autor='Mak-Pro'
-									selectPost={() => this.props.selectPost(post.id)}
-							 />
+
+				return <Link key={post.id} to={`/posts/${post.id}`} className={classes.all__posts_itemlink}>
+									<PostCard 
+										id={post.id}
+										title={post.title}
+										text={post.body}
+										autor='Mak-Pro'
+										selectPost={() => this.props.selectPost(post.id)}
+								 />
+							 </Link>
 			});
 		}
 

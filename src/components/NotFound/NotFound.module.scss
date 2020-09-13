@@ -1,0 +1,19 @@
+.not__found {
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	min-height: 20rem;
+	border: 1px solid #ccc;
+	width: 100%;
+
+	span {
+		display: block;
+		font-size: 3rem;
+
+		&:first-child {
+			font-size: 10rem;
+		}
+	}
+}

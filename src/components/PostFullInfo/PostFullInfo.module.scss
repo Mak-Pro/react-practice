@@ -4,10 +4,18 @@
 	text-align: center;
 	padding: 2rem;
 	margin-bottom: 3rem;
+	position: relative;
+	min-height: 19rem;
 
 	&_title {
 		font-size: 2rem;
 		font-weight: 700;
 		margin-bottom: 1rem;
+		clear: both;
+	}
+
+	.back {
+		margin-bottom: 4rem;
+		float: left;
 	}
 }

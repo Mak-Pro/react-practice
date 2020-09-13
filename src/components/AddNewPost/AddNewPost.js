@@ -4,6 +4,8 @@ import classes from './AddNewPost.module.scss';
 
 import axios from 'axios';
 
+import { Redirect } from 'react-router-dom';
+
 class AddNewPost extends Component {
 	constructor(props) {
 		super(props);
@@ -12,12 +14,13 @@ class AddNewPost extends Component {
 	state = {
 		title: '',
 		body: '',
-		autor: 'MakPro'
+		autor: 'MakPro',
+		postSuccess: false,
 	}
 
 
 	componentDidMount() {
-		console.log(this.props);
+		
 	}
 
 	sendPostHandler = () => {
@@ -30,13 +33,21 @@ class AddNewPost extends Component {
 
 		axios.post('/posts', data)
 				 .then(response => {
-				 		// console.log(response);
+				 		// this.props.routeProps.history.push('/posts'); // alternative way to REDIRECT
+				 		this.setState({
+				 			postSuccess: true
+				 		});
+				 })
+				 .catch(error => {
+
 				 });
 	}
 
 	render() {
+
 		return (
 			<div className={classes.add__new_post}>
+				{this.state.postSuccess ? <Redirect to='/posts' /> : null} {/* REDIRECT */}
 				<h2 className={classes.add__new_post_title}>Add Post</h2>
 				<div className="field__wrapper">
 					<span className="field__wrapper_label">Title</span>
