@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import classes from './BurgerBuilder.module.scss';
 
@@ -115,36 +116,38 @@ class BurgerBuilder extends Component {
 
 	continueOrderingHandler = () => {
 
-		this.setState({ sending: true });
+		this.props.history.push('/checkout');
 
-		const order = {
-			ingredients: this.state.ingredients,
-			price: this.state.totalPrice,
-			customer: {
-				name: 'MakPro',
-				address: {
-					country: 'Ukraine',
-					town: 'Nikolaev',
-					street: 'Central Street 1',
-					zipCode: '54000',
-				},
-				email: 'test@test.com',
-			}
-		}
+		// this.setState({ sending: true });
 
-		burgerAxiosInstance.post('/orders.json', order)
-											 .then(response => {
-											 		this.setState({ 
-											 			sending: false,
-											 			showOrderSummaryModal: !this.state.showOrderSummaryModal,
-											 		});
-											 })
-											 .catch(error => {
-											 		this.setState({ 
-											 			sending: false,
-											 			showOrderSummaryModal: !this.state.showOrderSummaryModal,
-											 		});
-											 });
+		// const order = {
+		// 	ingredients: this.state.ingredients,
+		// 	price: this.state.totalPrice,
+		// 	customer: {
+		// 		name: 'MakPro',
+		// 		address: {
+		// 			country: 'Ukraine',
+		// 			town: 'Nikolaev',
+		// 			street: 'Central Street 1',
+		// 			zipCode: '54000',
+		// 		},
+		// 		email: 'test@test.com',
+		// 	}
+		// }
+
+		// burgerAxiosInstance.post('/orders.json', order)
+		// 									 .then(response => {
+		// 									 		this.setState({ 
+		// 									 			sending: false,
+		// 									 			showOrderSummaryModal: !this.state.showOrderSummaryModal,
+		// 									 		});
+		// 									 })
+		// 									 .catch(error => {
+		// 									 		this.setState({ 
+		// 									 			sending: false,
+		// 									 			showOrderSummaryModal: !this.state.showOrderSummaryModal,
+		// 									 		});
+		// 									 });
 	}
 
 
@@ -193,4 +196,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default withRouter(BurgerBuilder);

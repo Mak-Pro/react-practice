@@ -16,9 +16,7 @@ class App extends Component {
 	render() {
 
 		return (
-			<Layout>
-					<p>layout</p>
-			</Layout>
+			<Layout></Layout>
 	  );
 	}
   
