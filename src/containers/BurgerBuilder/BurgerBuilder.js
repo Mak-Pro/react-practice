@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 
 import classes from './BurgerBuilder.module.scss';
 
+import { withRouter } from 'react-router-dom';
+
 
 import Burger from './Burger/Burger.js';
 import BurgerControls from '../../components/BurgerControls/BurgerControls.js';
@@ -89,7 +91,7 @@ class BurgerBuilder extends Component {
 	}
 
 	continueOrderingHandler = () => {
-		console.log('Continue Ordering...');
+		this.props.history.push('/checkout');
 	}
 
 
@@ -123,4 +125,4 @@ class BurgerBuilder extends Component {
   }
 }
 
-export default BurgerBuilder;
+export default withRouter(BurgerBuilder);

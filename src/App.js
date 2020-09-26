@@ -17,7 +17,7 @@ class App extends Component {
 
 		return (
 			<Layout>
-					<p>layout</p>
+
 			</Layout>
 	  );
 	}
