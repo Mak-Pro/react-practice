@@ -1,0 +1,41 @@
+.order__item {
+	border: 1px solid #ccc;
+	padding: 2rem;
+	margin-bottom: 1rem;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&_ingredients {
+		display: flex;
+		flex-wrap: wrap;
+		list-style: none;
+		margin: 0 -1rem;
+		padding: 0;
+
+		li {
+			margin: 0 1rem;
+			border: 1px solid #ccc;
+			padding: 0.2rem 0.8rem;
+		}
+
+		&_title {
+			margin-bottom: 1rem;
+		}
+	}
+
+	h5 {
+		font-weight: 700;
+
+		span {
+			font-size: 2.6rem;
+		}
+	}
+
+	&_price {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}

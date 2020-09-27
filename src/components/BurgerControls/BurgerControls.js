@@ -35,7 +35,7 @@ const BurgerControls = (props) => {
 				<button 
 					className={["btn", !purchaseble ? classes.disabled : null].join(' ')}
 					onClick={processOrder}
-				>Order</button>
+				>Continue</button>
 			</div>
 		</div>
 	);

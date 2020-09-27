@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import classes from './BurgerBuilder.module.scss';
-
-
 import Burger from './Burger/Burger.js';
 import BurgerControls from '../../components/BurgerControls/BurgerControls.js';
 import OrderSummary from './OrderSummary/OrderSummary.js';
@@ -26,11 +23,6 @@ const INGREDIENT_PRICES = {
 
 
 class BurgerBuilder extends Component {
-	
-	constructor(props) {
-		super(props);
-	}
-
 
 	state = {
 		ingredients: {
@@ -116,38 +108,21 @@ class BurgerBuilder extends Component {
 
 	continueOrderingHandler = () => {
 
-		this.props.history.push('/checkout');
+		const queryParams = [];
 
-		// this.setState({ sending: true });
+		for(let i in this.state.ingredients) {
+			queryParams.push(`${[i]}=${this.state.ingredients[i]}`);
+			//queryParams.push(`${encodeURIComponent([i])}=${encodeURIComponent(this.state.ingredients[i])}`);
+		}
 
-		// const order = {
-		// 	ingredients: this.state.ingredients,
-		// 	price: this.state.totalPrice,
-		// 	customer: {
-		// 		name: 'MakPro',
-		// 		address: {
-		// 			country: 'Ukraine',
-		// 			town: 'Nikolaev',
-		// 			street: 'Central Street 1',
-		// 			zipCode: '54000',
-		// 		},
-		// 		email: 'test@test.com',
-		// 	}
-		// }
+		queryParams.push(`price=${this.state.totalPrice}`);
 
-		// burgerAxiosInstance.post('/orders.json', order)
-		// 									 .then(response => {
-		// 									 		this.setState({ 
-		// 									 			sending: false,
-		// 									 			showOrderSummaryModal: !this.state.showOrderSummaryModal,
-		// 									 		});
-		// 									 })
-		// 									 .catch(error => {
-		// 									 		this.setState({ 
-		// 									 			sending: false,
-		// 									 			showOrderSummaryModal: !this.state.showOrderSummaryModal,
-		// 									 		});
-		// 									 });
+		let queryString = queryParams.join('&');
+
+		this.props.history.push({
+			pathname: '/checkout',
+			search: `?${queryString}`
+		});
 	}
 
 

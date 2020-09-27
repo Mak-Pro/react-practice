@@ -14,6 +14,7 @@ const Burger = (props) => {
 		for(let i = 0; i < ingredients[ingredient]; i++) {
 			transformedIngredientsArray.push(ingredient);
 		}
+		return null;
 	});
 
 	const transformedIngredients = transformedIngredientsArray.map((ingredient, index) => {
