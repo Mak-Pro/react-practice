@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Counter from './containers/Counter/Counter.js';
 
 
 class App extends Component {
@@ -15,7 +16,7 @@ class App extends Component {
 
 		return (
 			<div className="content__container">
-				Content
+				<Counter />
 			</div>
 	  );
 	}
