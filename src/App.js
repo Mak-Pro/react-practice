@@ -15,7 +15,7 @@ class App extends Component {
 
 		return (
 			<div className="content__container">
-				Content
+				Redux Basics
 			</div>
 	  );
 	}
