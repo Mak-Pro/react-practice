@@ -9,8 +9,8 @@ const personsReducer = (state = initialState, action) => {
 		case actionTypes.ADD_PERSON: 
 			const newPerson = {
 				id: Math.random(),
-				name: 'Max',
-				age: Math.floor( Math.random() * 40 )
+				name: action.payload.name,
+				age: action.payload.age
 			}
 			return {
 				...state,
