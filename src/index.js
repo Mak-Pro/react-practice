@@ -6,9 +6,16 @@ import * as serviceWorker from './serviceWorker';
 
 
 // Store
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './store/rootReducer.js';
+// import rootReducer from './store/rootReducer.js';
+import counterReducer from './store/reducers/counterReducer.js';
+import resultsReducer from './store/reducers/resultsReducer.js';
+
+const rootReducer = combineReducers({
+	counterReducer,
+	resultsReducer
+});
 
 const store = createStore(rootReducer);
 
