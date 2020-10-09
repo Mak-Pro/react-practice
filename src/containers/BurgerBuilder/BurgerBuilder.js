@@ -11,118 +11,43 @@ import burgerAxiosInstance from '../../axiosInstances.js';
 import Preloader from '../../components/Preloader/Preloader.js';
 
 
+//Redux
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions.js';
 
-const INGREDIENT_PRICES = {
-	salad: 1.2,
-	bacon: 3.5,
-	cheese: 2.4,
-	meat: 4,
-	tomatoes: 1.5,
-}
+
+// const INGREDIENT_PRICES = {
+// 	salad: 1.2,
+// 	bacon: 3.5,
+// 	cheese: 2.4,
+// 	meat: 4,
+// 	tomatoes: 1.5,
+// }
 
 
 
 class BurgerBuilder extends Component {
 
-	state = {
-		ingredients: {
-			salad: 0,
-			bacon: 0,
-			cheese: 0,
-			meat: 0,
-			tomatoes: 0,
-		},
-		totalPrice: 4,
-		purchaseble: false,
-		showOrderSummaryModal: false,
-		sending: false,
-		loaded: false,
-		error: false,
-	}
+	// componentDidMount() {
+	// 	burgerAxiosInstance.get('/ingredients.json')
+	// 										 .then(response => {
+	// 										 	this.setState({
+	// 										 		ingredients: response.data,
+	// 										 		loaded: true,
+	// 										 	});
+	// 										 })
+	// 										 .catch(error => {
+	// 										 	console.log(error);
+	// 										 	this.setState({
+	// 										 		loaded: true,
+	// 										 		error: true,
+	// 										 	});
+	// 										 });
+	// }
 
 
-	componentDidMount() {
-		burgerAxiosInstance.get('/ingredients.json')
-											 .then(response => {
-											 	this.setState({
-											 		ingredients: response.data,
-											 		loaded: true,
-											 	});
-											 })
-											 .catch(error => {
-											 	console.log(error);
-											 	this.setState({
-											 		loaded: true,
-											 		error: true,
-											 	});
-											 });
-	}
-
-
-	addIngredientHandler =(type) => {
-		const modifiedIngredients = {
-			...this.state.ingredients,
-		}
-		modifiedIngredients[type] = modifiedIngredients[type] + 1;
-
-		const ingredientsCount = Object.values(modifiedIngredients).reduce((sum, el) => {
-  		return sum + el;
-  	});
-
-
-		this.setState({
-			ingredients: modifiedIngredients,
-			totalPrice: this.state.totalPrice + INGREDIENT_PRICES[type],
-			purchaseble: ingredientsCount > 0,
-		});
-	}
-
-	removedIngredientHandler =(type) => {
-		const modifiedIngredients = {
-			...this.state.ingredients,
-		}
-		if(modifiedIngredients[type] > 0) {
-			modifiedIngredients[type] = modifiedIngredients[type] - 1;
-		}
-
-
-		const ingredientsCount = Object.values(modifiedIngredients).reduce((sum, el) => {
-  		return sum + el;
-  	});
-
-
-		this.setState({
-			ingredients: modifiedIngredients,
-			totalPrice: this.state.totalPrice - INGREDIENT_PRICES[type],
-			purchaseble: ingredientsCount > 0,
-		});
-	}
-
-
-
-	showOrderSummaryModalHandler = () => {
-		this.setState({
-			showOrderSummaryModal: !this.state.showOrderSummaryModal
-		});
-	}
-
-	continueOrderingHandler = () => {
-
-		const queryParams = [];
-
-		for(let i in this.state.ingredients) {
-			queryParams.push(`${[i]}=${this.state.ingredients[i]}`);
-			//queryParams.push(`${encodeURIComponent([i])}=${encodeURIComponent(this.state.ingredients[i])}`);
-		}
-
-		queryParams.push(`price=${this.state.totalPrice}`);
-
-		let queryString = queryParams.join('&');
-
-		this.props.history.push({
-			pathname: '/checkout',
-			search: `?${queryString}`
-		});
+	continueOrderHandler = () => {
+		this.props.history.push('/checkout');
 	}
 
 
@@ -131,28 +56,28 @@ class BurgerBuilder extends Component {
     return (
 			<Fragment>
 				<Modal 
-					show={this.state.showOrderSummaryModal}
-					cancelOrder={this.showOrderSummaryModalHandler}
+					show={this.props.showModal}
+					cancelOrder={this.props.showModalHandler}
 				>
-				{this.state.showOrderSummaryModal ? <OrderSummary 
-						ingredients={this.state.ingredients}
-						cancelOrder={this.showOrderSummaryModalHandler}
-						continueOrder={this.continueOrderingHandler}
-						totalPrice={this.state.totalPrice}
+				{this.props.showModal ? <OrderSummary 
+						ingredients={this.props.ingredients}
+						cancelOrder={this.props.showModalHandler}
+						continueOrder={this.continueOrderHandler}
+						totalPrice={this.props.totalPrice}
 					/> : null}
-					<Preloader loaded={!this.state.sending}/>
+					<Preloader loaded={!this.props.sendingProcess}/>
 				</Modal>
 				
-				{this.state.loaded && !this.state.error ? 
+				{this.props.contentLoaded && !this.props.error ? 
 					<Fragment>
-						<Burger ingredients={this.state.ingredients}/>
+						<Burger ingredients={this.props.ingredients}/>
 						<BurgerControls 
-							controls={this.state.ingredients}
-							addIngredient={this.addIngredientHandler}
-							removedIngredient={this.removedIngredientHandler}
-							totalPrice={this.state.totalPrice}
-							purchaseble={this.state.purchaseble}
-							processOrder={this.showOrderSummaryModalHandler}
+							controls={this.props.ingredients}
+							addIngredient={this.props.addIngredientHandler}
+							removedIngredient={this.props.removeIngredientHandler}
+							totalPrice={this.props.totalPrice}
+							purchaseble={this.props.purchaseble}
+							processOrder={this.props.showModalHandler}
 						/>
 					</Fragment> : <h2 style={{
 					fontSize: '4rem',
@@ -164,11 +89,36 @@ class BurgerBuilder extends Component {
 					alignItems: 'center',
 					justifyContent: 'center',
 					maxWidth: '80rem'
-				}}>{this.state.error ? 'ERROR LOADING DATA...' : 'LOADING...'}</h2>}
+				}}>{this.props.error ? 'ERROR LOADING DATA...' : 'LOADING...'}</h2>}
 				
 			</Fragment>
     );
   }
 }
 
-export default withRouter(BurgerBuilder);
+
+
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.burgerBuilderReducer.ingredients,
+    totalPrice: state.burgerBuilderReducer.totalPrice,
+    purchaseble: state.burgerBuilderReducer.purchaseble,
+    showModal: state.generalReducer.showModal,
+    sendingProcess: state.generalReducer.sendingProcess,
+    contentLoaded: state.generalReducer.contentLoaded,
+    error: state.generalReducer.error,
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addIngredientHandler: (type) => dispatch({type: actionTypes.ADD_INGREDIENT, payload: {type}}),
+    removeIngredientHandler: (type) => dispatch({type: actionTypes.REMOVE_INGREDIENT, payload: {type}}),
+    showModalHandler: () => dispatch({type: actionTypes.SHOW_MODAL}),
+  }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BurgerBuilder));

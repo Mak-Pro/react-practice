@@ -7,6 +7,10 @@ import burgerAxiosInstance from '../../../axiosInstances.js';
 
 import FormField from '../../../components/FormField/FormField.js';
 
+
+import * as actionTypes from '../../../store/actions.js';
+import { connect } from 'react-redux';
+
 class ContactData extends Component {
 
 	state = {
@@ -99,6 +103,7 @@ class ContactData extends Component {
 
 		// запускаем preloader
 		this.props.process(e);
+		this.props.showModalHandler();
 
 		const order = {
 			ingredients: this.props.ingredients,
@@ -183,4 +188,21 @@ class ContactData extends Component {
 	
 }
 
-export default withRouter(ContactData);
+
+
+const mapStateToProps = (state) => {
+  return {
+    showModal: state.generalReducer.showModal,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showModalHandler: () => dispatch({type: actionTypes.SHOW_MODAL}),
+  }
+}
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ContactData));

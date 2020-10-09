@@ -10,38 +10,15 @@ import classes from './Checkout.module.scss';
 
 import { withRouter } from 'react-router-dom';
 
+//Redux
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions.js';
+
 
 class Checkout extends Component {
 
-	state = {
-		ingredients: {},
-		totalPrice: 0,
-		processing: false
-	}
-
-
-	componentDidMount() {
-		const query = new URLSearchParams(this.props.location.search);
-		const ingredients = {};
-		let tp = 0;
-		for(let param of query.entries()) {
-			if(param[0] !== 'price') {
-				ingredients[param[0]] = +param[1];
-			}
-			else {
-				tp = +param[1];
-			}
-		}
-
-		this.setState({
-			ingredients: ingredients,
-			totalPrice: tp,
-		});
-		
-	}
-
-
 	cancelCheckoutHandler = () => {
+		this.props.showModalHandler();
 		this.props.history.goBack();
 	}
 
@@ -49,21 +26,14 @@ class Checkout extends Component {
 		this.props.history.replace('/checkout/contact-data');
 	}
 
-	processHandler = (e) => {
-		e.preventDefault();
-		this.setState({
-			processing: !this.state.processing
-		});
-	}
-
 
 	render() {
 
 		return (
 			<div className={classes.checkout}>
-				{this.state.processing ? <Preloader /> : null}
+				{this.props.sendingProcess ? <Preloader /> : null}
 				<h2>We hope, It tastes well!</h2>
-				<Burger ingredients={this.state.ingredients}/>
+				<Burger ingredients={this.props.ingredients}/>
 				<hr/>
 				<div className={classes.checkout__actions}>
 					<button className={["btn", classes.discard].join(' ')} onClick={this.cancelCheckoutHandler}>Cancel</button>
@@ -71,9 +41,9 @@ class Checkout extends Component {
 				</div>
 				<Route path={`${this.props.match.path}/contact-data`} render={
 					() => <ContactData 
-									ingredients={this.state.ingredients}
-									totalPrice={this.state.totalPrice}
-									process={this.processHandler}
+									ingredients={this.props.ingredients}
+									totalPrice={this.props.totalPrice}
+									process={this.props.sendingProcessHandler}
 								/>
 				}/>
 			</div>
@@ -82,4 +52,25 @@ class Checkout extends Component {
 	
 }
 
-export default withRouter(Checkout);
+
+
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.burgerBuilderReducer.ingredients,
+    totalPrice: state.burgerBuilderReducer.totalPrice,
+    sendingProcess: state.generalReducer.sendingProcess,
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    sendingProcessHandler: () => dispatch({type: actionTypes.SENDING_PROCESS}),
+    showModalHandler: () => dispatch({type: actionTypes.SHOW_MODAL}),
+  }
+}
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Checkout));
