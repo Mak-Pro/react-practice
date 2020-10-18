@@ -4,8 +4,15 @@ import { connect } from 'react-redux';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 
-// import * as actionTypes from '../../store/actions.js';
-import { increment, decrement, add, subtract, storeResults, deleteResults } from '../../store/actions/actions.js';
+
+// Первый вариант импорта нужных actionCreators
+// import { increment, decrement, add, subtract } from '../../store/actions/counterActionCreators.js';
+// import { storeResults, deleteResults } from '../../store/actions/resultsActionCreators.js';
+
+
+// Второй вариант - если используется index.js в папке actions
+import { increment, decrement, add, subtract, storeResults, deleteResults } from '../../store/actions/index.js';
+
 
 class Counter extends Component {
 
