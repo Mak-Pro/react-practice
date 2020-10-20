@@ -1,4 +1,9 @@
-import * as actionTypes from '../../store/actions.js';
+import * as actionTypes from '../../store/actions/actionTypes.js';
+
+
+const { INIT_INGREDIENTS, ADD_INGREDIENT, REMOVE_INGREDIENT } = actionTypes;
+
+
 
 const INGREDIENT_PRICES = {
 	salad: 1.2,
@@ -9,13 +14,7 @@ const INGREDIENT_PRICES = {
 }
 
 const initialState = {
-	ingredients: {
-		salad: 0,
-		bacon: 0,
-		cheese: 0,
-		meat: 0,
-		tomatoes: 0,
-	},
+	ingredients: {},
 	totalPrice: 4,
 	purchaseble: false,
 }
@@ -23,10 +22,20 @@ const initialState = {
 const burgerBuilderReducer = (state = initialState, action) => {
 	switch(action.type) {
 
+		// INIT INGEDIENTS
+		case INIT_INGREDIENTS:
+			// Copy of state
+			const initIngredients = action.payload.ingredients;
+			return {
+				...state,
+				ingredients: initIngredients,
+				totalPrice: 4,
+				purchaseble: false,
+			}
 
 
 		// ADD INGREDIENT
-		case actionTypes.ADD_INGREDIENT:
+		case ADD_INGREDIENT:
 			// Copy of state
 			const addModifiedIngredients = {
 				...state.ingredients,
@@ -51,7 +60,7 @@ const burgerBuilderReducer = (state = initialState, action) => {
 
 
 		// REMOVE INGREDIENT
-		case actionTypes.REMOVE_INGREDIENT:
+		case REMOVE_INGREDIENT:
 			// Copy of state
 			const removeModifiedIngredients = {
 				...state.ingredients,
@@ -70,7 +79,7 @@ const burgerBuilderReducer = (state = initialState, action) => {
 			return {
 				...state,
 				ingredients: removeModifiedIngredients,
-				totalPrice: state.totalPrice + INGREDIENT_PRICES[action.payload.type],
+				totalPrice: state.totalPrice - INGREDIENT_PRICES[action.payload.type],
 				purchaseble: removeIngredientsCount > 0,
 			}
 

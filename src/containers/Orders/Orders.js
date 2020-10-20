@@ -6,30 +6,17 @@ import classes from './Orders.module.scss';
 import Preloader from '../../components/Preloader/Preloader.js';
 import Order from '../../components/Order/Order.js';
 
-class Orders extends Component {
 
-	state = {
-		orders: [],
-		loading: true
-	}
+//Redux
+import { connect } from 'react-redux';
+
+import { initOrders } from '../../store/actions/index.js';
+
+class Orders extends Component {
 
 	componentDidMount() {
 
-
-
-		burgerAxiosInstance.get('/orders.json')
-											 .then(response => {
-											 		this.setState({
-											 			orders: response.data,
-											 			loading: false,
-											 		});
-											 })
-											 .catch(error => {
-											 	console.log(error);
-											 	this.setState({
-											 			loading: false,
-											 		});
-											 });
+		this.props.initOrdersHandler();
 
 	}
 
@@ -37,8 +24,8 @@ class Orders extends Component {
 
 		const ordersArray = [];
 
-		for(let item in this.state.orders) {
-			ordersArray.push({id: item, ingredients: this.state.orders[item].ingredients, totalPrice: this.state.orders[item].price});
+		for(let item in this.props.orders) {
+			ordersArray.push({id: item, ingredients: this.props.orders[item].ingredients, totalPrice: this.props.orders[item].price});
 		}
 
 		const ordersList = ordersArray.map((order) => {
@@ -48,14 +35,46 @@ class Orders extends Component {
 
 		return (
 			<Fragment>
-				{this.state.loading ? <Preloader/> : null}
-				<div className={classes.orders}>
-					{ordersList}
-				</div>
+				{this.props.loading && !this.props.error ? <Preloader/> : null}
+				{
+					this.props.error ? <h2 style={{
+						fontSize: '4rem',
+						fontWeight: '700',
+						textAlign: 'center',
+						margin: '0 auto',
+						minHeight: '100vh',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						maxWidth: '80rem'
+					}}>Error loading orders...</h2> : 
+					<div className={classes.orders}>
+						{ordersList}
+					</div>
+				}
+				
 			</Fragment>
 		);
 
 	}
 }
 
-export default Orders;
+
+const mapStateToProps = (state) => {
+  return {
+    orders: state.orderReducer.orders,
+    loading: state.orderReducer.loading,
+    error: state.orderReducer.error,
+  }
+}
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  	initOrdersHandler: () => dispatch(initOrders()),
+  }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

@@ -6,44 +6,20 @@ import BurgerControls from '../../components/BurgerControls/BurgerControls.js';
 import OrderSummary from './OrderSummary/OrderSummary.js';
 import Modal from '../../components/Modal/Modal.js';
 
-import burgerAxiosInstance from '../../axiosInstances.js';
-
 import Preloader from '../../components/Preloader/Preloader.js';
 
 
 //Redux
 import { connect } from 'react-redux';
-import * as actionTypes from '../../store/actions.js';
 
-
-// const INGREDIENT_PRICES = {
-// 	salad: 1.2,
-// 	bacon: 3.5,
-// 	cheese: 2.4,
-// 	meat: 4,
-// 	tomatoes: 1.5,
-// }
-
-
+import { initIngredients, addIngredient, removeIngredient, showModal } from '../../store/actions/index.js';
 
 class BurgerBuilder extends Component {
 
-	// componentDidMount() {
-	// 	burgerAxiosInstance.get('/ingredients.json')
-	// 										 .then(response => {
-	// 										 	this.setState({
-	// 										 		ingredients: response.data,
-	// 										 		loaded: true,
-	// 										 	});
-	// 										 })
-	// 										 .catch(error => {
-	// 										 	console.log(error);
-	// 										 	this.setState({
-	// 										 		loaded: true,
-	// 										 		error: true,
-	// 										 	});
-	// 										 });
-	// }
+
+	componentDidMount() {
+		this.props.initIngredientsHandler();
+	}
 
 
 	continueOrderHandler = () => {
@@ -52,6 +28,7 @@ class BurgerBuilder extends Component {
 
 
   render() {
+  	
 
     return (
 			<Fragment>
@@ -112,10 +89,12 @@ const mapStateToProps = (state) => {
 
 
 const mapDispatchToProps = (dispatch) => {
+
   return {
-    addIngredientHandler: (type) => dispatch({type: actionTypes.ADD_INGREDIENT, payload: {type}}),
-    removeIngredientHandler: (type) => dispatch({type: actionTypes.REMOVE_INGREDIENT, payload: {type}}),
-    showModalHandler: () => dispatch({type: actionTypes.SHOW_MODAL}),
+  	initIngredientsHandler: () => dispatch(initIngredients()),
+    addIngredientHandler: (type) => dispatch(addIngredient(type)),
+    removeIngredientHandler: (type) => dispatch(removeIngredient(type)),
+    showModalHandler: () => dispatch(showModal()),
   }
 }
 

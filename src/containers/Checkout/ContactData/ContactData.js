@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import classes from './ContactData.module.scss';
 
@@ -8,7 +8,10 @@ import burgerAxiosInstance from '../../../axiosInstances.js';
 import FormField from '../../../components/FormField/FormField.js';
 
 
-import * as actionTypes from '../../../store/actions.js';
+import * as actionTypes from '../../../store/actions/actionTypes.js';
+
+import { startPurchaseBurger, sendingProcess, showModal } from '../../../store/actions/index.js';
+
 import { connect } from 'react-redux';
 
 class ContactData extends Component {
@@ -101,13 +104,11 @@ class ContactData extends Component {
 	orderHandler = (e) => {
 		e.preventDefault();
 
-		// запускаем preloader
-		this.props.process(e);
 		this.props.showModalHandler();
 
 		const order = {
 			ingredients: this.props.ingredients,
-			price: this.props.totalPrice,
+			price: this.props.totalPrice.toFixed(1),
 			customer: {
 				name: '',
 				address: {
@@ -148,18 +149,12 @@ class ContactData extends Component {
 			}
 		}
 
-		burgerAxiosInstance.post('/orders.json', order)
-											 .then(response => {
-											 		this.props.process(e);
-											 		this.props.history.push('/');
-											 })
-											 .catch(error => {
-											 		this.props.process(e);
-											 		this.props.history.push('/');
-											 });
+		this.props.startPurchaseBurgerHandler(order);
 	}
 
 	render() {
+
+		let redirectToMainPage = this.props.purchased ? <Redirect to=''/> : null;
 
 		const formFieldsArray = [];
 
@@ -172,16 +167,19 @@ class ContactData extends Component {
 		});
 
 		return (
-			<div className={classes.contact__data}>
-				<form action="">
-					{formFieldsList}
-					<hr />
-					<div className={classes.submit__wrapper}>
-						<button className='btn' type='submit' onClick={this.orderHandler}>ORDER</button>
-					</div>
-				</form>
-			{/* Найти плагин типа FORMIK для валидации, изучить и внедрить */}
-			</div>
+			<Fragment>
+				{ redirectToMainPage }
+				<div className={classes.contact__data}>
+					<form action="">
+						{formFieldsList}
+						<hr />
+						<div className={classes.submit__wrapper}>
+							<button className='btn' type='submit' onClick={this.orderHandler}>ORDER</button>
+						</div>
+					</form>
+				{/* Найти плагин типа FORMIK для валидации, изучить и внедрить */}
+				</div>
+			</Fragment>
 		);
 	}
 
@@ -191,14 +189,17 @@ class ContactData extends Component {
 
 
 const mapStateToProps = (state) => {
+
   return {
     showModal: state.generalReducer.showModal,
+    purchased: state.orderReducer.purchased,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    showModalHandler: () => dispatch({type: actionTypes.SHOW_MODAL}),
+    showModalHandler: () => dispatch(showModal()),
+    startPurchaseBurgerHandler: (data) => dispatch(startPurchaseBurger(data)),
   }
 }
 

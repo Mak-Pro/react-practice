@@ -1,22 +1,43 @@
-import * as actionTypes from '../../store/actions.js';
+import * as actionTypes from '../../store/actions/actionTypes.js';
+
+
+const { 
+	INIT_INGREDIENTS, 
+	FETCH_INGREDIENTS_FAILED, 
+	SHOW_MODAL, 
+	SENDING_PROCESS,
+} = actionTypes;
 
 const initialState = {
 	showModal: false,
 	sendingProcess: false,
-	contentLoaded: true,
+	contentLoaded: false,
 	error: false,
 }
 
 const generalReducer = (state = initialState, action) => {
 	switch(action.type) {
 
-		case actionTypes.SHOW_MODAL:
+		case INIT_INGREDIENTS:
+			return {
+				...state,
+				contentLoaded: true,
+				error: false,
+			}
+
+		case FETCH_INGREDIENTS_FAILED:
+			return {
+				...state,
+				error: true,
+			}
+
+		case SHOW_MODAL:
 			return {
 				...state,
 				showModal: !state.showModal,
 			}
 
-		case actionTypes.SENDING_PROCESS:
+		case SENDING_PROCESS:
 			return {
 				...state,
 				sendingProcess: !state.sendingProcess,
