@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Layout from './containers/Layout/Layout.js';
+import TransitionTest from './components/TransitionTest/TransitionTest.js';
+import Navigation from './components/Navigation/Navigation.js';
 
 
 class App extends Component {
@@ -14,9 +18,12 @@ class App extends Component {
 	render() {
 
 		return (
-			<div className="content__container">
-				Content
-			</div>
+			<BrowserRouter basename='/'>
+				<Layout>
+					<Navigation />
+					<Route path='/' exact render={() => <TransitionTest />}/>
+				</Layout>
+			</BrowserRouter>
 	  );
 	}
   
