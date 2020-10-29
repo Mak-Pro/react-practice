@@ -12,12 +12,12 @@ const {
 
 
 
-export const startPurchaseBurger = (order) => {
+export const startPurchaseBurger = (order, token) => {
 	return (dispatch) => {
 		dispatch({
 			type: START_PURCHASE_BURGER,
 		});
-		burgerAxiosInstance.post('/orders.json', order)
+		burgerAxiosInstance.post('/orders.json?auth=' + token, order)
 		.then(response => {
 			dispatch({
 				type: PURCHASE_BURGER_SUCCESS,
@@ -32,12 +32,12 @@ export const startPurchaseBurger = (order) => {
 }
 
 
-export const initOrders = () => {
+export const initOrders = (token) => {
 	return (dispatch) => {
 		dispatch({
 			type: INIT_ORDERS,
 		});
-		burgerAxiosInstance.get('/orders.json')
+		burgerAxiosInstance.get('/orders.json?auth=' + token)
 		.then(response => {
 			const orders = response.data;
 			dispatch({

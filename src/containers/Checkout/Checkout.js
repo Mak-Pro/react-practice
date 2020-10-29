@@ -31,8 +31,6 @@ class Checkout extends Component {
 
 		let checkoutContent = <Redirect to='/'/>
 
-
-
 		 if(Object.keys(this.props.ingredients).length !== 0) {
 
 		 		checkoutContent = (

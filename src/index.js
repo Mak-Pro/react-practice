@@ -15,11 +15,13 @@ import thunk from 'redux-thunk';
 import generalReducer from './store/reducers/generalReducer.js';
 import burgerBuilderReducer from './store/reducers/burgerBuilderReducer.js';
 import orderReducer from './store/reducers/orderReducer.js';
+import authReducer from './store/reducers/authReducer.js';
 
 const rootReducer = combineReducers({
 	generalReducer,
 	burgerBuilderReducer,
 	orderReducer,
+	authReducer,
 });
 
 

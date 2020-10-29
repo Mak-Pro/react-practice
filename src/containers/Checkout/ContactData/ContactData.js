@@ -149,7 +149,7 @@ class ContactData extends Component {
 			}
 		}
 
-		this.props.startPurchaseBurgerHandler(order);
+		this.props.startPurchaseBurgerHandler(order, this.props.token);
 	}
 
 	render() {
@@ -193,13 +193,14 @@ const mapStateToProps = (state) => {
   return {
     showModal: state.generalReducer.showModal,
     purchased: state.orderReducer.purchased,
+    token: state.authReducer.token,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     showModalHandler: () => dispatch(showModal()),
-    startPurchaseBurgerHandler: (data) => dispatch(startPurchaseBurger(data)),
+    startPurchaseBurgerHandler: (data, token) => dispatch(startPurchaseBurger(data, token)),
   }
 }
 

@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './Layout.module.scss';
 
@@ -8,19 +9,35 @@ import Header from '../../containers/Header/Header.js';
 import BurgerBuilder from '../../containers/BurgerBuilder/BurgerBuilder.js';
 import Checkout from  '../../containers/Checkout/Checkout.js';
 import Orders from '../../containers/Orders/Orders.js';
+import Auth from '../../containers/Auth/Auth.js';
 
 
-const Layout = (props) => {
-	return (
-		<Fragment>
-			<Header />
-			<main className={classes.main}>
-				<Route path='/' exact render={() => <BurgerBuilder />}/>
-				<Route path='/checkout' render={() => <Checkout />}/>
-				<Route path='/orders' exact render={() => <Orders />}/>
-			</main>
-		</Fragment>
-	);
+class Layout extends Component {
+
+	render() {
+		return (
+			<Fragment>
+				<Header isAuth={this.props.token}/>
+				<main className={classes.main}>
+					<Route path='/' exact render={() => <BurgerBuilder />}/>
+					<Route path='/checkout' render={() => <Checkout />}/>
+					<Route path='/orders' exact render={() => <Orders />}/>
+					<Route path='/auth' exact render={() => <Auth />}/>
+				</main>
+			</Fragment>
+		);
+	}
+	
 }
 
-export default Layout;
+
+const mapStateToProps = (state) => {
+  return {
+  	token: state.authReducer.token,
+  }
+}
+
+
+
+
+export default connect(mapStateToProps)(Layout);

@@ -3,7 +3,8 @@ import * as actionTypes from '../../store/actions/actionTypes.js';
 
 const { 
 	START_PURCHASE_BURGER, 
-	PURCHASE_BURGER_SUCCESS, 
+	PURCHASE_BURGER_SUCCESS,
+	PURCHASE_BURGER_FAIL,
 	INIT_ORDERS,
 	FETCH_ORDERS_SUCCESS, 
 	FETCH_ORDERS_FAILED 
@@ -34,6 +35,13 @@ const orderReducer = (state = initialState, action) => {
 				purchased: false,
 			}
 
+		case PURCHASE_BURGER_FAIL:
+			return {
+				...state,
+				sendingProcess: !state.sendingProcess,
+				purchased: false,
+			}
+			
 		case INIT_ORDERS:
 			return {
 				...state,
@@ -53,6 +61,7 @@ const orderReducer = (state = initialState, action) => {
 			return {
 				...state,
 				error: true,
+				loading: !state.loading,
 			}
 	}
 	

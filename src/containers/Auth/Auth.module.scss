@@ -1,0 +1,69 @@
+.auth {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	visibility: 100vw;
+	overflow: hidden;
+	position: relative;
+	margin-top: -5rem;
+
+	&::after {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		background: #000;
+		opacity: 0.5;
+	}
+
+	&__inner {
+		width: 100%;
+		max-width: 40rem;
+		background: #fff;
+		position: relative;
+		z-index: 2;
+		padding: 3rem 3rem 3rem;
+
+		form {
+
+			[type="submit"] {
+				width: 100%;
+			}
+		}
+	}
+
+	&__note {
+		text-align: center;
+		font-weight: 700;
+		margin-top: 2rem;
+
+		button {
+			margin-top: 1rem;
+		}
+	}
+
+	&__error {
+		text-align: center;
+		color: tomato;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+}
+
+
+.logout {
+	width: 100%;
+	background: #4B7DBD;
+	color: #fff;
+	border-color: #4B7DBD;
+	margin-top: 2rem;
+
+	&:hover {
+		background: transparent;
+		color: #4B7DBD;
+	}
+}
