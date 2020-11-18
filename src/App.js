@@ -1,25 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+import Ingredients from './components/Ingredients/Ingredients';
 
-
-class App extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	state = {
-		
-	}
-
-	render() {
-
-		return (
-			<div className="content__container">
-				Content
-			</div>
-	  );
-	}
-  
+const App = () => {
+	return <Ingredients />;
 }
 
 export default App;
